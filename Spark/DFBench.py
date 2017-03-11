@@ -36,7 +36,7 @@ class DFJoin(DFBench):
                                      FROM orders o
         				             JOIN lineitem l ON (o.orderkey = l.orderkey)
                                      JOIN part p ON (l.partkey = p.partkey)""")
-        dfResult.show()
+        dfResult.count()
 
 
 
