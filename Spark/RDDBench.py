@@ -34,15 +34,16 @@ class RDDJoin(RDDBench):
         #                             FROM orders o
         #				             JOIN lineitem l ON (o.orderkey = l.orderkey)
         #                             JOIN part p ON (l.partkey = p.partkey)""")
-        #print "Take:",self.RDDs["orders"].take(10)
+
+
         RDDResult=self.RDDs["orders"]\
                       .map(lambda row: (row['orderkey'],row))\
-                      .join(self.RDDs["lineitem"].map(lambda row: (row['orderkey'],row))) \
-                      .map(lambda row: (row['partkey'], row)) \
+                      .join(self.RDDs["lineitem"].map(lambda row: (row['orderkey'],row)))\
+                      .map(lambda (k,v): (v[1]['partkey'], v))\
                       .join(self.RDDs["part"].map(lambda row: (row['partkey'],row)))
 
         RDDResult.count()
-
+        #print "Take end:",RDDResult.take(1)
 
 class RDDSort(RDDBench):
 

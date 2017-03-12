@@ -16,19 +16,19 @@ from DFBench import DFJoin,DFOrderBy,DFGroupBy
 from RDDBench import RDDJoin,RDDSort, RDDReduceByKey
 from TPCH2Data import TPCH2Data
 
-TPCH_DATASET_PATH="Data/a4-tpch-0"
+TPCH_DATASET_PATH="Data/tpch-small"
 NUMBER_OF_TRIES=1
 #global log
 def RunDataFrame(sc,sqlCt):
     data=TPCH2Data(sc, TPCH_DATASET_PATH)
 
     benchs=[]
-    benchs.append(DFJoin(sqlCt,NUMBER_OF_TRIES))
-    benchs.append(DFOrderBy(sqlCt,NUMBER_OF_TRIES))
-    benchs.append(DFGroupBy(sqlCt,NUMBER_OF_TRIES))
+   # benchs.append(DFJoin(sqlCt,NUMBER_OF_TRIES))
+   # benchs.append(DFOrderBy(sqlCt,NUMBER_OF_TRIES))
+   # benchs.append(DFGroupBy(sqlCt,NUMBER_OF_TRIES))
     benchs.append(RDDJoin(data.RDDs, NUMBER_OF_TRIES))
-    benchs.append(RDDSort(data.RDDs, NUMBER_OF_TRIES))
-    benchs.append(RDDReduceByKey(data.RDDs, NUMBER_OF_TRIES))
+   # benchs.append(RDDSort(data.RDDs, NUMBER_OF_TRIES))
+   # benchs.append(RDDReduceByKey(data.RDDs, NUMBER_OF_TRIES))
 
     for b in benchs:
         b.Measure()
