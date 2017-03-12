@@ -8,11 +8,16 @@
 ##############################################################################
 
 import socket
-import timeit
+import time
 from abc import ABCMeta, abstractmethod
 
 class Benchmark(object):
     __metaclass__ = ABCMeta
+
+    Results={}
+    Name=""
+    Hostname=""
+
 
     def __init__(self, Name, Num_Exec=3):
         self.Name=Name
@@ -25,14 +30,15 @@ class Benchmark(object):
     def Measure(self):
         times=[]
         for i in range(self.Num_Exec):
-            start = timeit.timeit()
+            start = time.time()
             self.process()
-            end = timeit.timeit()
+            end = time.time()
             times.append(end - start)
 
+        self.Results["time"] = float(sum(times))/float(len(times))
 
 
-        self.Results["time"] = sum(times)/len(times)
+        #self.Results["time"] = 0
 
     @abstractmethod
     def process(self):

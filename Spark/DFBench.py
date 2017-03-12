@@ -8,14 +8,12 @@
 ##############################################################################
 
 from Benchmark import Benchmark
-from TPCH2DataFrame import TPCH2DataFrame
+
 
 
 class DFBench(Benchmark):
 
-    @staticmethod
-    def LoadData(sc, input_dir):
-        TPCH2DataFrame(sc, input_dir)
+
 
     def __init__(self, Context, Name, Num_Exec=3):
 
@@ -39,8 +37,30 @@ class DFJoin(DFBench):
         dfResult.count()
 
 
+class DFOrderBy(DFBench):
+
+    def __init__(self, SQLContext, Num_Exec=3):
+        super(DFOrderBy, self).__init__(SQLContext, "DataFrameOrderBy", Num_Exec)
 
 
+    def process(self):
+        dfResult=self.Context.sql("""SELECT o.orderkey, o.totalprice
+                                     FROM orders o
+        				             ORDER BY o.orderkey""")
+        dfResult.count()
+        dfResult.first()
+
+class DFGroupBy(DFBench):
+
+    def __init__(self, SQLContext, Num_Exec=3):
+        super(DFGroupBy, self).__init__(SQLContext, "DataFrameGroupBy", Num_Exec)
+
+
+    def process(self):
+        dfResult=self.Context.sql("""SELECT o.order_priority, count(*)
+                                     FROM orders o
+        				             GROUP BY o.order_priority """)
+        dfResult.count()
 
 
 
