@@ -23,7 +23,6 @@ NUMBER_OF_TRIES=1
 
 
 
-
 if __name__ == "__main__":
     conf = SparkConf().setAppName('Spark benchmark')
     sc = SparkContext(conf=conf)
@@ -33,7 +32,7 @@ if __name__ == "__main__":
     log4j.PropertyConfigurator.configure("log4j.properties")
     log4j.LogManager.getLogger(__name__).setLevel(log4j.Level.DEBUG)
 
-    data = TPCH2Data(sc, TPCH_DATASET_PATH)
+    #data = TPCH2Data(sc, TPCH_DATASET_PATH)
     benchs = []
     # benchs.append(DFJoin(sqlCt,NUMBER_OF_TRIES))
     # benchs.append(DFOrderBy(sqlCt,NUMBER_OF_TRIES))
