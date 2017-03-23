@@ -29,7 +29,9 @@ class Benchmark(object):
 
     def Measure(self):
         times=[]
+
         for i in range(self.Num_Exec):
+            self.pre_process()
             start = time.time()
             self.process()
             end = time.time()
@@ -39,6 +41,10 @@ class Benchmark(object):
 
 
         #self.Results["time"] = 0
+
+    def pre_process(self):
+        return
+
 
     @abstractmethod
     def process(self):
