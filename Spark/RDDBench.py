@@ -28,13 +28,11 @@ class RDDJoin(RDDBench):
     def __init__(self, RDDs, Num_Exec=3):
         super(RDDJoin, self).__init__(RDDs, "RDDJoin", Num_Exec)
 
+    def pre_process(self):
+        for rdd in self.RDDs.values():
+            rdd.unpersist()
 
     def process(self):
-        #dfResult=self.Context.sql("""SELECT o.orderkey, o.totalprice, p.name
-        #                             FROM orders o
-        #				             JOIN lineitem l ON (o.orderkey = l.orderkey)
-        #                             JOIN part p ON (l.partkey = p.partkey)""")
-
 
         RDDResult=self.RDDs["orders"]\
                       .map(lambda row: (row['orderkey'],row))\
@@ -51,6 +49,10 @@ class RDDSort(RDDBench):
         super(RDDSort, self).__init__(RDDs, "RDDSort", Num_Exec)
 
 
+    def pre_process(self):
+        for rdd in self.RDDs.values():
+            rdd.unpersist()
+
     def process(self):
         RDDResult = self.RDDs["orders"].sortBy(lambda row: row['orderkey'])
         RDDResult.first()
@@ -62,6 +64,10 @@ class RDDReduceByKey(RDDBench):
     def __init__(self, RDDs, Num_Exec=3):
         super(RDDReduceByKey, self).__init__(RDDs, "RDDReduceByKey", Num_Exec)
 
+    
+    def pre_process(self):
+        for rdd in self.RDDs.values():
+            rdd.unpersist()
 
     def process(self):
 

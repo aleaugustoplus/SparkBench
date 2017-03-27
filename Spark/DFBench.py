@@ -28,6 +28,8 @@ class DFJoin(DFBench):
     def __init__(self, SQLContext, Num_Exec=3):
         super(DFJoin, self).__init__(SQLContext, "DataFrameJoin", Num_Exec)
 
+    def pre_process(self):
+        self.Context.clearCache()
 
     def process(self):
         dfResult=self.Context.sql("""SELECT o.orderkey, o.totalprice, p.name
@@ -42,6 +44,8 @@ class DFOrderBy(DFBench):
     def __init__(self, SQLContext, Num_Exec=3):
         super(DFOrderBy, self).__init__(SQLContext, "DataFrameOrderBy", Num_Exec)
 
+    def pre_process(self):
+        self.Context.clearCache()
 
     def process(self):
         dfResult=self.Context.sql("""SELECT o.orderkey, o.totalprice
@@ -55,6 +59,8 @@ class DFGroupBy(DFBench):
     def __init__(self, SQLContext, Num_Exec=3):
         super(DFGroupBy, self).__init__(SQLContext, "DataFrameGroupBy", Num_Exec)
 
+    def pre_process(self):
+        self.Context.clearCache()
 
     def process(self):
         dfResult=self.Context.sql("""SELECT o.order_priority, count(*)

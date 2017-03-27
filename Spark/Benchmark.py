@@ -9,6 +9,7 @@
 
 import socket
 import time
+import os
 from abc import ABCMeta, abstractmethod
 
 class Benchmark(object):
@@ -32,9 +33,12 @@ class Benchmark(object):
 
         for i in range(self.Num_Exec):
             self.pre_process()
+	    os.system("date")
             start = time.time()
             self.process()
             end = time.time()
+	    os.system("date")
+
             times.append(end - start)
 
         self.Results["time"] = float(sum(times))/float(len(times))
