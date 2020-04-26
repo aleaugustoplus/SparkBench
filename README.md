@@ -12,7 +12,7 @@ Apache spark cluster
 
 ### Installing
 
-Simply download this software to your android device
+Simply launch this app on your spark cluster using spark-submit
 
 ## Running the tests
 
